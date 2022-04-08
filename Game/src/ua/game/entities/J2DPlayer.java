@@ -1,6 +1,6 @@
 package ua.game.entities;
 
-import ua.game.J2DContext;
+import ua.game.graphics.J2DContext;
 
 public class J2DPlayer extends AbstractPlayer{
 
@@ -10,15 +10,15 @@ public class J2DPlayer extends AbstractPlayer{
 
     /* CONSTRUCTOR */
 
-    public J2DPlayer(int x, int y, String name, J2DContext j2dContext) {
-        super(x, y, name);
+    public J2DPlayer(int x, int y, String name, int speed, J2DContext j2dContext) {
+        super(x, y, name, speed);
         this.j2dContext = j2dContext;
     }
 
     /* METHODS */
 
     @Override
-    void visualise() {
+    public void visualise() {
         
     }
 }

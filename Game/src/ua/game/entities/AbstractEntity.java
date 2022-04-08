@@ -31,4 +31,8 @@ public abstract class AbstractEntity {
     public void setY(int y) {
         this.y = y;
     }
+
+    /* METHODS */
+
+    public abstract void visualise();
 }
