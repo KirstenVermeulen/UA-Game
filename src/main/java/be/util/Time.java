@@ -1,4 +1,4 @@
-package game;
+package be.util;
 
 public class Time {
 

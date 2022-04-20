@@ -1,150 +1,57 @@
-package game;
+package be.game;
 
-import game.components.Movable;
-import game.entities.AbstractEntity.State;
-import game.entities.AbstractPlayer;
-import game.factories.Factory;
-import game.factories.J2DFactory;
-import game.graphics.TileManager;
-import game.inputs.Input;
+import be.engine.LevelScene;
+import be.engine.Scene;
+import be.engine.factory.Factory;
+import be.engine.factory.J2DFactory;
+import be.engine.input.Input;
+import be.util.Time;
 
-import javax.swing.*;
-import java.util.ArrayList;
-import java.util.List;
-
-public class Game extends JFrame implements Runnable {
+public class Game implements Runnable {
 
     /* FIELDS */
 
     /* Singleton */
-    private static Game game = null;
+    private static Game instance = null;
 
-    /* Graphics properties */
-
-    /* Game properties */
+    /* Properties */
     private boolean running = true;
-    private boolean paused = false;
 
-
-
-
-
-    /* Managers */
-    private final Factory factory = new J2DFactory();;
-    private Input input;
-    private TileManager tileManager;
-    private LevelManager levelManager;
-
-
-    /* Game Objects */
-    private AbstractPlayer player;
-
-    /* Systems */
-
+    /* Graphics */
+    private final Scene scene;
 
     /* CONSTRUCTOR (SINGLETON) */
 
     private Game() {
-
-
-
+        scene = new LevelScene();
+        scene.init();
     }
 
-    public static Game getGame() {
-        if (Game.game == null) {
-            Game.game = new Game();
+    public static Game getInstance() {
+        if (Game.instance == null) {
+            Game.instance = new Game();
         }
 
-        return Game.game;
+        return Game.instance;
     }
 
     /* METHODS */
 
-    public void init() {
-        factory.loadAssets();
-
-        input = factory.createInput();
-        levelManager = factory.createLevelManager();
-        tileManager = factory.createTileManager();
-
-        /* Create entities */
-        player = factory.createPlayer(10, 10);
-
-        /* List all drawable entities */
-
-        /* Load level 1 */
-        levelManager.startLevel(tileManager,"src/main/resources/levels/levelsConfig.json");
-
-    }
-
-    private void togglePause() {
-        paused = !paused;
-    }
-
-    private void update() {
-
-        /* Input */
-
-        float[] velocity = {0, 0};
-        boolean[] currentInput = input.getPressed();
-
-        player.currentState = State.IDLE;
-
-        if (currentInput[0]) {
-            /* Up */
-            player.currentState = State.CLIMB;
-            velocity[1] = velocity[1] - 2;
-        }
-        if (currentInput[1]) {
-            /* Down */
-            player.currentState = State.CLIMB;
-            velocity[1] = velocity[1] + 2;
-        }
-        if (currentInput[2]) {
-            /* Left */
-            player.currentState = State.WALK;
-            velocity[0] = velocity[0] - 2;
-        }
-        if (currentInput[3]) {
-            /* Right */
-            player.currentState = State.WALK;
-            velocity[0] = velocity[0] + 2;
-        }
-        if (currentInput[4] && (currentInput[2] || currentInput[3])) {
-            /* Run */
-            player.currentState = State.RUN;
-            velocity[0] = velocity[0] * 1.8f;
-
-        }
-        if (currentInput[5]) {
-            /* Jump */
-            player.currentState = State.JUMP;
-            player.movable.setIsJumping(true);
-        }
-
-        /* Movement */
-        player.movable.setVelocity(velocity);
-        List<Movable> componentList = new ArrayList<>();
-        componentList.add(player.getMovable());
-        movementUpdater.update(componentList);
-    }
-
-    private void draw() {
-        /* Draw the map */
-        tileManager.drawMap();
-
-        /* Draw the entities */
-        player.visualise();
-    }
-
     public void run() {
+        double lastFrameTime = 0.0;
 
-        while (running) {
-            if (!paused) {
-                update();
+        try {
+            while(running) {
+
+                double time = Time.getTime();
+                double deltaTime = time - lastFrameTime;
+                lastFrameTime = time;
+
+                scene.update(deltaTime);
+                scene.draw();
             }
-            draw();
-            factory.render();
+        } catch(Exception e) {
+            e.printStackTrace();
         }
     }
 

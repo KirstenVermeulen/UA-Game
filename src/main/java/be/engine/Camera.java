@@ -1,2 +1,4 @@
-package be.engine;public class Camera {
+package be.engine;
+
+public class Camera {
 }

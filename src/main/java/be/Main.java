@@ -1,6 +1,6 @@
-package game;
+package be;
 
-import game.factories.*;
+import be.game.Game;
 
 public class Main {
 
@@ -9,8 +9,7 @@ public class Main {
         /**
          * The game runs in a Thread
          */
-        Game game = Game.getGame();
-        game.init();
+        Game game = Game.getInstance();
 
         Thread t1 = new Thread(game);
         t1.start();

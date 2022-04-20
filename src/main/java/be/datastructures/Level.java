@@ -1,6 +1,4 @@
-package be.engine;
-
-import be.engine.entity.AbstractEnemy;
+package be.datastructures;
 
 public class Level {
 
@@ -9,20 +7,12 @@ public class Level {
     private int id;
     private String name;
     private Layout layout;
-    private AbstractEnemy[] enemies;
+    private EnemyStats[] enemyStats;
     private int nextLevel;
 
     /* CONSTRUCTOR */
 
     public Level() {
-    }
-
-    public Level(int id, String name, Layout layout, AbstractEnemy[] enemies, int nextLevel) {
-        this.id = id;
-        this.name = name;
-        this.layout = layout;
-        this.enemies = enemies;
-        this.nextLevel = nextLevel;
     }
 
     /* GETTERS & SETTERS */
@@ -51,12 +41,12 @@ public class Level {
         this.layout = layout;
     }
 
-    public AbstractEnemy[] getEnemies() {
-        return enemies;
+    public EnemyStats[] getEnemyStats() {
+        return enemyStats;
     }
 
-    public void setEnemies(AbstractEnemy[] enemies) {
-        this.enemies = enemies;
+    public void setEnemyStats(EnemyStats[] enemies) {
+        this.enemyStats = enemies;
     }
 
     public int getNextLevel() {

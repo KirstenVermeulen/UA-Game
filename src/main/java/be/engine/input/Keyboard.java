@@ -1,4 +1,4 @@
-package be.engine.inputs;
+package be.engine.input;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -8,7 +8,7 @@ public class Keyboard extends KeyAdapter implements KeyListener {
 
     /* FIELDS */
 
-    private boolean keyPressed[] = new boolean[128];
+    private boolean[] keyPressed = new boolean[128];
 
     /* METHODS */
 

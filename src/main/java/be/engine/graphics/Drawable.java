@@ -1,2 +1,5 @@
-package be.engine.graphics;public interface Drawable {
+package be.engine.graphics;
+
+public interface Drawable {
+    void draw();
 }

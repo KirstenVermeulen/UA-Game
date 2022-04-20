@@ -1,26 +1,37 @@
-package be.engine.entities;
+package be.engine.entity;
 
-import be.engine.component.Movable;
+import be.engine.component.Movement;
+import be.engine.component.Sound;
+import be.engine.component.Sprite;
+import be.engine.graphics.Drawable;
 
-public abstract class AbstractPlayer extends AbstractEntity{
+public abstract class AbstractPlayer implements Drawable {
 
     /* FIELDS */
 
-    private int screenX;
+    private String name;
+
+    private Movement movement;
+    private Sound sound;
+    private Sprite sprite;
 
     /* CONSTRUCTOR */
 
-    public AbstractPlayer(Movable movable) {
-        super(movable);
+    public AbstractPlayer(String name) {
+        this.name = name;
+
+        movement = new Movement();
+        sound = new Sound();
+        sprite = new Sprite();
     }
 
     /* GETTERS & SETTERS */
 
-    public int getScreenX() {
-        return screenX;
+    public Sprite getSprite() {
+        return sprite;
     }
 
-    public void setScreenX(int screenX) {
-        this.screenX = screenX;
-    }
+    /* METHODS */
+
+    public abstract void draw();
 }

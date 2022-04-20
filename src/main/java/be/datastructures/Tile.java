@@ -1,4 +1,4 @@
-package be.engine.graphics;
+package be.datastructures;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

@@ -1,4 +1,4 @@
-package be.engine.inputs;
+package be.engine.input;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

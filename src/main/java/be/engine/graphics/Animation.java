@@ -1,4 +1,4 @@
-package game.graphics;
+package be.engine.graphics;
 
 import java.awt.image.BufferedImage;
 

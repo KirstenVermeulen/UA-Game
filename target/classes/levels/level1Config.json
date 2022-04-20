@@ -1,9 +1,0 @@
-{
-  "name": "Level 1",
-  "map": "map_data/level1Map.txt",
-  "startingPosition": {
-    "x": 100,
-    "y": 100
-  },
-  "nextLevel": "level2Config.json"
-}

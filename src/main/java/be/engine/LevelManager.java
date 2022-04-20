@@ -1,34 +1,29 @@
-package be;
+package be.engine;
 
+import be.datastructures.Level;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import be.engine.graphics.TileManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class LevelManager {
 
-    Level currentLevel;
+    /* FIELDS */
+
+    private final HashMap<Integer, Level> levels;
 
     /* CONSTRUCTOR */
 
     public LevelManager() {
+        levels = new HashMap<>();
     }
 
     /* METHODS */
 
-    public void startLevel(TileManager tileManager, String config) {
-        currentLevel = loadLevel(config);
-
-        if (currentLevel != null){
-            tileManager.loadMap(currentLevel.map.file, new int[] {currentLevel.map.width, currentLevel.map.height});
-        }
-
-    }
-
-    private Level loadLevel(String config) {
+    public void init(String config) {
 
         try {
             String json = null;
@@ -39,17 +34,22 @@ public class LevelManager {
             }
 
             if (json != null) {
-                return new ObjectMapper().readValue(json, Level.class);
-            } else {
-                System.out.println("Failed to load the level");
-                return null;
-            }
+                ObjectMapper mapper = new ObjectMapper();
 
+                for (Level l : mapper.readValue(json, Level[].class)) {
+                    levels.put(l.getId(), l);
+                }
+            } else {
+                System.out.println("JSON file is empty!");
+            }
 
         } catch (FileNotFoundException | JsonProcessingException e) {
             e.printStackTrace();
+            System.exit(-1);
         }
+    }
 
-        return null;
+    public Level getLevel(int id) {
+        return levels.get(id);
     }
 }

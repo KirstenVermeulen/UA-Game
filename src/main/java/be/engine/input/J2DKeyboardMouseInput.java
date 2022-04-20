@@ -1,32 +1,27 @@
 package be.engine.input;
 
+import be.engine.graphics.J2DContext;
+
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
 
-public class KeyboardMouseInput extends Input {
+public class J2DKeyboardMouseInput extends Input {
 
     /* FIELDS */
-
-    /* Singleton */
-    private static KeyboardMouseInput instance = null;
 
     private Keyboard keyboard;
     private Mouse mouse;
 
-    /* CONSTRUCTOR (SINGLETON) */
+    /* CONSTRUCTOR */
 
-    private KeyboardMouseInput() {
+    public J2DKeyboardMouseInput(J2DContext context) {
         this.keyboard = new Keyboard();
         this.mouse = new Mouse();
-    }
 
-    public static KeyboardMouseInput getInstance() {
-        if (KeyboardMouseInput.instance == null) {
-            KeyboardMouseInput.instance = new KeyboardMouseInput();
-        }
-
-        return KeyboardMouseInput.instance;
+        context.getFrame().addKeyListener(keyboard);
+        context.getFrame().addMouseListener(mouse);
+        context.getFrame().addMouseMotionListener(mouse);
     }
 
     /* GETTERS */
@@ -40,6 +35,12 @@ public class KeyboardMouseInput extends Input {
     }
 
     /* METHODS */
+
+    public void init(J2DContext context) {
+        context.getFrame().addKeyListener(keyboard);
+        context.getFrame().addMouseListener(mouse);
+        context.getFrame().addMouseMotionListener(mouse);
+    }
 
     @Override
     public Map<Action, Boolean> getInput() {

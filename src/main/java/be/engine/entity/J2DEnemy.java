@@ -1,10 +1,8 @@
 package be.engine.entity;
 
-import be.engine.component.Movement;
-import be.engine.component.Pathfinding;
-import be.engine.component.Sound;
+import be.datastructures.EnemyStats;
 
-public class Enemy extends AbstractEnemy {
+public class J2DEnemy extends AbstractEnemy {
 
     /* FIELDS */
 
@@ -12,10 +10,15 @@ public class Enemy extends AbstractEnemy {
 
     /* CONSTRUCTOR */
 
-    public Enemy() {
+    public J2DEnemy(EnemyStats enemyStats) {
+        super(enemyStats);
     }
 
     /* METHODS */
 
+    @Override
+    public void draw() {
+
+    }
 
 }

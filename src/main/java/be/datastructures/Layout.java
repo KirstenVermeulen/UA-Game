@@ -1,4 +1,4 @@
-package be.engine;
+package be.datastructures;
 
 public class Layout {
 
@@ -12,13 +12,6 @@ public class Layout {
     /* CONSTRUCTOR */
 
     public Layout() {
-    }
-
-    public Layout(String file, int width, int height, StartingPosition startingPosition) {
-        this.file = file;
-        this.width = width;
-        this.height = height;
-        this.startingPosition = startingPosition;
     }
 
     /* GETTERS & SETTERS */

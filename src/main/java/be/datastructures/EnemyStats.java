@@ -1,2 +1,9 @@
-package be.datastructures;public class EnemyStats {
+package be.datastructures;
+
+public class EnemyStats {
+
+    /* CONSTRUCTOR */
+
+    public EnemyStats() {
+    }
 }
