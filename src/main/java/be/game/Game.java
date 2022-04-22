@@ -1,10 +1,8 @@
 package be.game;
 
-import be.engine.LevelScene;
-import be.engine.Scene;
-import be.engine.factory.Factory;
-import be.engine.factory.J2DFactory;
-import be.engine.input.Input;
+import be.engine.scenes.LevelScene;
+import be.engine.scenes.AbstractScene;
+import be.engine.factory.AbstractFactory;
 import be.util.Time;
 
 public class Game implements Runnable {
@@ -18,13 +16,11 @@ public class Game implements Runnable {
     private boolean running = true;
 
     /* Graphics */
-    private final Scene scene;
+    private AbstractScene scene;
 
     /* CONSTRUCTOR (SINGLETON) */
 
     private Game() {
-        scene = new LevelScene();
-        scene.init();
     }
 
     public static Game getInstance() {
@@ -37,18 +33,21 @@ public class Game implements Runnable {
 
     /* METHODS */
 
+    public void setGraphicsLibrary(AbstractFactory factory) {
+        scene = new LevelScene(factory);
+        scene.init();
+    }
+
     public void run() {
-        double lastFrameTime = 0.0;
+        Time.start();
 
         try {
             while(running) {
 
-                double time = Time.getTime();
-                double deltaTime = time - lastFrameTime;
-                lastFrameTime = time;
-
-                scene.update(deltaTime);
+                scene.update();
                 scene.draw();
+
+                Time.sleep();
             }
         } catch(Exception e) {
             e.printStackTrace();

@@ -1,8 +1,0 @@
-{
-  "name": "Level 1",
-  "map": "level1Map.txt",
-  "startingPosition": {
-    "x": 100,
-    "y": 100
-  }
-}

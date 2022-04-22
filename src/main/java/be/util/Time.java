@@ -2,10 +2,27 @@ package be.util;
 
 public class Time {
 
-    public static double timeStarted = System.nanoTime();
+    private static double drawInterval = 1E9 / 60; // FPS
+    private static double nextDrawTime = 0;
 
-    public static double getTime() {
-        return (System.nanoTime() - timeStarted) * 1E-9;
+    public static void start() {
+        nextDrawTime = System.nanoTime() + drawInterval;
+    }
+
+    public static void sleep() {
+        try {
+            double remainingTime = (nextDrawTime - System.nanoTime()) / 1E6; // Milliseconds
+
+            if (remainingTime < 0) {
+                remainingTime = 0;
+            }
+
+            Thread.sleep((long) remainingTime);
+
+            nextDrawTime += drawInterval;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }

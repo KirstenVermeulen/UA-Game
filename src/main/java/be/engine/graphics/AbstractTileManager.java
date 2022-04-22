@@ -1,11 +1,9 @@
 package be.engine.graphics;
 
-import be.datastructures.Layout;
-import be.datastructures.Tile;
+import be.engine.data.Layout;
+import be.engine.data.Tile;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 
 public abstract class AbstractTileManager {
 
