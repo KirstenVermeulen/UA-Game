@@ -2,19 +2,21 @@ package be.engine.data;
 
 public class Layout {
 
-    /* FIELDS */
+    // FIELDS //
 
     private String file;
+    private String background;
+    private String tileset;
     private int width;
     private int height;
     private StartingPosition startingPosition;
 
-    /* CONSTRUCTOR */
+    // CONSTRUCTOR //
 
     public Layout() {
     }
 
-    /* GETTERS & SETTERS */
+    // GETTERS & SETTERS //
 
     public String getFile() {
         return file;
@@ -22,6 +24,22 @@ public class Layout {
 
     public void setFile(String file) {
         this.file = file;
+    }
+
+    public String getBackground() {
+        return background;
+    }
+
+    public void setBackground(String background) {
+        this.background = background;
+    }
+
+    public String getTileset() {
+        return tileset;
+    }
+
+    public void setTileset(String tileset) {
+        this.tileset = tileset;
     }
 
     public int getWidth() {
@@ -48,16 +66,16 @@ public class Layout {
         this.startingPosition = startingPosition;
     }
 
-    /* CLASS */
+    // CLASS //
 
     public static class StartingPosition {
 
-        /* FIELDS */
+        // FIELDS //
 
         public int x;
         public int y;
 
-        /* CONSTRUCTOR */
+        // CONSTRUCTOR //
 
         public StartingPosition() {
         }

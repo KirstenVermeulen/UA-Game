@@ -2,30 +2,29 @@ package be.util;
 
 public class Constants {
 
-    /* --- WINDOW --- */
+    // --- WINDOW --- //
     public static final int SCREEN_WIDTH = 1280;
     public static final int SCREEN_HEIGHT = 720;
-    public static final String SCREEN_TITLE = "Geometry Dash";
+    public static final String SCREEN_TITLE = "Woodlands";
 
-    /* --- LEVELS --- */
-    public static final String LEVEL_CONFIG = "src/main/resources/levels/levelsConfig.json";
-
-    /* --- PLAYER --- */
+    // --- PLAYER --- //
     public static final String PLAYER_NAME = "Ewan";
+    public static final int WALKING_SPEED = 5;
+    public static final int RUNNING_SPEED = 8;
 
-    /* --- SPRITES --- */
+    // --- SPRITES --- //
     public static final int ORIGINAL_TILESIZE = 32;
     public static final float SCALE = 1.5f;
     public static final int TILESIZE = (int) (ORIGINAL_TILESIZE * SCALE);
 
 
-    /* --- FILES --- */
+    // --- FILES --- //
     private static final String BASE_PATH = "src/main/resources/";
 
-    /* Tiles */
-    public static final String GREENZONE_TILES = BASE_PATH + "tiles/green_zone/";
+    // Levels //
+    public static final String LEVEL_CONFIG = BASE_PATH + "levels/levelsConfig.json";
 
-    /* Player - Woodcutter */
+    // Player - Woodcutter //
     private static final String WOODCUTTER_IDLE = BASE_PATH + "characters/players/woodcutter/idle.png";
     private static final String WOODCUTTER_WALK = BASE_PATH + "characters/players/woodcutter/walk.png";
     private static final String WOODCUTTER_RUN = BASE_PATH + "characters/players/woodcutter/run.png";

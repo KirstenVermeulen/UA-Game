@@ -31,8 +31,8 @@ public class J2DFactory extends AbstractFactory {
     }
 
     @Override
-    public J2DTileManager createTileManager() {
-        return new J2DTileManager(context);
+    public J2DLayoutManager createTileManager() {
+        return new J2DLayoutManager(context);
     }
 
     @Override

@@ -3,9 +3,7 @@ package be.engine.ecs.entities;
 import be.engine.ecs.components.Movement;
 import be.engine.ecs.components.Sound;
 import be.engine.graphics.Animation;
-import be.engine.graphics.Drawable;
 
-import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
 public abstract class AbstractPlayer extends AbstractEntity {
@@ -27,8 +25,8 @@ public abstract class AbstractPlayer extends AbstractEntity {
     public AbstractPlayer(String name) {
         this.name = name;
 
-        currentState = State.RUN;
-        previousState = State.RUN;
+        currentState = State.IDLE;
+        previousState = State.IDLE;
 
         movement = new Movement();
         sound = new Sound();

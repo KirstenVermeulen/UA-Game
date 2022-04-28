@@ -12,14 +12,14 @@ import java.io.File;
 
 public class J2DPlayer extends AbstractPlayer {
 
-    /* FIELDS */
+    // FIELDS //
 
     private final J2DContext context;
 
     private int animationSpriteNumber;
     private int animationTime;
 
-    /* CONSTRUCTOR */
+    // CONSTRUCTOR //
 
     public J2DPlayer(String name, J2DContext context) {
         super(name);
@@ -30,7 +30,7 @@ public class J2DPlayer extends AbstractPlayer {
         animationTime = 0;
     }
 
-    /* METHODS */
+    // METHODS //
 
     @Override
     public void loadSprites(String[] skin, int[] animationDuration) {
@@ -57,12 +57,12 @@ public class J2DPlayer extends AbstractPlayer {
 
                 for (String path : skin) {
 
-                    /* Read file */
+                    // Read file //
                     file = new File(path);
                     filename = file.getName().toUpperCase();
                     state = filename.substring(0, filename.lastIndexOf("."));
 
-                    /* Resize */
+                    // Resize //
                     image = ImageIO.read(file);
                     originalWidth = image.getWidth();
                     originalHeight = image.getHeight();
@@ -72,7 +72,7 @@ public class J2DPlayer extends AbstractPlayer {
 
                     image = context.resize(image, newWidth, newHeight);
 
-                    /* Make subsprites */
+                    // Make subsprites //
                     int x = 0;
                     numberOfSubsprites = newWidth / newHeight;
 
@@ -83,7 +83,7 @@ public class J2DPlayer extends AbstractPlayer {
                         x += newHeight;
                     }
 
-                    /* Create animation */
+                    // Create animation //
                     switch (state) {
                         case "IDLE" -> addSprite(State.IDLE, new Animation(animationDuration[count], subsprites));
                         case "WALK" -> addSprite(State.WALK, new Animation(animationDuration[count], subsprites));

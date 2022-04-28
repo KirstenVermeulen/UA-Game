@@ -5,20 +5,16 @@ import be.engine.scenes.AbstractScene;
 import be.engine.factory.AbstractFactory;
 import be.util.Time;
 
-public class Game implements Runnable {
+public class Game {
 
-    /* FIELDS */
+    // FIELDS //
 
-    /* Singleton */
     private static Game instance = null;
 
-    /* Properties */
     private boolean running = true;
-
-    /* Graphics */
     private AbstractScene scene;
 
-    /* CONSTRUCTOR (SINGLETON) */
+    // CONSTRUCTOR (SINGLETON) //
 
     private Game() {
     }
@@ -31,9 +27,9 @@ public class Game implements Runnable {
         return Game.instance;
     }
 
-    /* METHODS */
+    // METHODS //
 
-    public void setGraphicsLibrary(AbstractFactory factory) {
+    public void setGraphicsPackage(AbstractFactory factory) {
         scene = new LevelScene(factory);
         scene.init();
     }

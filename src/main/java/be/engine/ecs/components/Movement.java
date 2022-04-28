@@ -2,41 +2,21 @@ package be.engine.ecs.components;
 
 public class Movement {
 
-    /* FIELDS */
+    // FIELDS //
 
-    private int x;
-    private int y;
+    private int worldX = 0;
+    private int worldY = 0;
+
+    private boolean facingRight = true;
 
     private  int[] velocity;
 
-    /* CONSTRUCTOR */
+    // CONSTRUCTOR //
 
     public Movement() {
     }
 
-    /* GETTERS & SETTERS */
+    // GETTERS & SETTERS //
 
-    public int getX() {
-        return x;
-    }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public int[] getVelocity() {
-        return velocity;
-    }
-
-    public void setVelocity(int[] velocity) {
-        this.velocity = velocity;
-    }
 }

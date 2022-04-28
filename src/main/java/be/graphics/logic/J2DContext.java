@@ -23,17 +23,13 @@ public class J2DContext {
         /* Window */
         frame = new JFrame();
 
-
         /* Graphics */
         panel = new JPanel(true) {
             @Override
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
-
                 Graphics2D graph2d = (Graphics2D) g;
-
                 graph2d.drawImage(image, 0, 0, null);
-
                 graph2d.dispose();
             }
         };
@@ -45,8 +41,6 @@ public class J2DContext {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-
-
     }
 
     /* GETTERS & SETTERS */

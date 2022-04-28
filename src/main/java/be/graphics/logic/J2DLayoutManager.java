@@ -2,7 +2,7 @@ package be.graphics.logic;
 
 import be.engine.data.Tile;
 import be.engine.data.Layout;
-import be.engine.graphics.AbstractTileManager;
+import be.engine.graphics.AbstractLayoutManager;
 import be.util.Constants;
 
 import javax.imageio.ImageIO;
@@ -12,22 +12,21 @@ import java.io.*;
 import java.util.*;
 import java.util.List;
 
-public class J2DTileManager extends AbstractTileManager {
+public class J2DLayoutManager extends AbstractLayoutManager {
 
-    /* FIELDS */
+    // FIELDS //
 
     private final J2DContext context;
     private BufferedImage background;
 
-    /* CONSTRUCTOR */
+    // CONSTRUCTOR //
 
-    public J2DTileManager(J2DContext context) {
+    public J2DLayoutManager(J2DContext context) {
         super(new HashMap<>());
         this.context = context;
     }
 
-    /* METHODS */
-
+    // METHODS //
 
     @Override
     public int[][] loadMap(Layout layout) {
@@ -35,11 +34,11 @@ public class J2DTileManager extends AbstractTileManager {
 
             Set<String> uniqueTiles = new HashSet<>();
 
-            /* File IO */
+            // File IO //
             FileReader fileReader = new FileReader(new File(layout.getFile()));
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-            /* Construct layout */
+            // Construct layout //
             int column = 0;
             int row = 0;
 
@@ -62,8 +61,9 @@ public class J2DTileManager extends AbstractTileManager {
 
             bufferedReader.close();
 
-            /* Load unique tiles */
-            loadTiles(uniqueTiles);
+            // Load background and tiles //
+            loadBackground(layout.getBackground());
+            loadTiles(uniqueTiles, layout.getTileset());
 
             return mapTileNumbers;
 
@@ -74,29 +74,39 @@ public class J2DTileManager extends AbstractTileManager {
         return null;
     }
 
-    public void loadTiles(Set<String> tileNumbers) {
+    private void loadBackground(String backgroundPath) {
+        try {
+            background = ImageIO.read(new File(backgroundPath));
+
+            int backgroundRows = 9;
+            float scale = (float) (Constants.TILESIZE * backgroundRows) / background.getHeight();
+
+            background = context.resize(background, (int) (background.getWidth() * scale), (int) (background.getHeight() * scale));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void loadTiles(Set<String> tileNumbers, String tilesetPath) {
+        BufferedImage image;
+
         try {
             clearTiles();
 
-            /* Read and scale background image (GREEN ZONE) */
-            //float scale = 1.334f;
-
-            //background = ImageIO.read(new File("src/main/resources/backgrounds/green_zone/Background.png"));
-           //background = context.resize(background, (int) (background.getWidth() * scale), (int) (background.getHeight() * scale));
-
-            /* Read tile images (GREEN ZONE) */
+            // Read tile images (GREEN ZONE) //
             int tempTileNumber;
 
             for (String tileNumber : tileNumbers) {
 
-                String path = String.format("%stile_%s.png", Constants.GREENZONE_TILES, tileNumber);
-
+                String path = String.format("%stile_%s.png", tilesetPath, tileNumber);
                 tempTileNumber = Integer.parseInt(tileNumber);
 
+                image = context.resize(ImageIO.read(new File(path)), Constants.TILESIZE, Constants.TILESIZE);
+
                 if (tempTileNumber <= 72 && tempTileNumber > 0) {
-                    addTile(tempTileNumber, new Tile(ImageIO.read(new File(path)), true));
+                    addTile(tempTileNumber, new Tile(image, true));
                 } else {
-                    addTile(tempTileNumber, new Tile(ImageIO.read(new File(path)), false));
+                    addTile(tempTileNumber, new Tile(image, false));
                 }
             }
         } catch (Exception e) {
@@ -104,19 +114,25 @@ public class J2DTileManager extends AbstractTileManager {
         }
     }
 
-    private void loadBackground() {
-
-    }
 
     @Override
     public void draw(Layout layout, int[][] mapLayout) {
 
-        /* Background */
-
-
-        /* Tiles */
-        HashMap<Integer, Tile> tiles = getTiles();
         Graphics2D g2 = context.getG2();
+
+        // Background //
+        int x = 0;
+        int width = background.getWidth();
+        int height = background.getHeight();
+
+        for (int i = 0; i < 2; i++) {
+            // TODO: Shift background when camera moves
+            g2.drawImage(background, x, 0, width, height, null);
+            x += width;
+        }
+
+        // Tiles //
+        HashMap<Integer, Tile> tiles = getTiles();
 
         for (int column = 0; column < layout.getWidth(); column++) {
             for (int row = 0; row < layout.getHeight(); row++) {

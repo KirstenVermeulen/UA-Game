@@ -4,53 +4,55 @@ import be.engine.data.LevelManager;
 import be.engine.data.EnemyStats;
 import be.engine.data.Level;
 import be.engine.ecs.entities.AbstractEnemy;
+import be.engine.ecs.entities.AbstractEntity.State;
 import be.engine.ecs.entities.AbstractPlayer;
 import be.engine.factory.AbstractFactory;
-import be.engine.graphics.AbstractTileManager;
+import be.engine.graphics.AbstractLayoutManager;
 import be.engine.input.Input;
 import be.util.Constants;
 
+import java.util.Map;
+
 public class LevelScene extends AbstractScene {
 
-    /* FIELDS */
+    // FIELDS //
 
-    /* Managers */
+    // Managers //
     private LevelManager levelManager;
-    private AbstractTileManager tileManager;
+    private AbstractLayoutManager layoutManager;
 
     private AbstractPlayer player;
     private AbstractEnemy[] enemies;
     private int[][] mapLayout;
 
-    /* Input */
+    // Input //
     private Input input;
+    private Map<Input.Action, Boolean> currentInput;
 
-    /* Properties */
+    // Properties //
     private Level currentLevel;
     private boolean paused = false;
 
-    /* CONSTRUCTOR */
+    // CONSTRUCTOR //
 
     public LevelScene(AbstractFactory factory) {
         super(factory);
 
-        /* Managers */
+        // Managers //
         levelManager = new LevelManager();
         levelManager.init(Constants.LEVEL_CONFIG);
 
-        tileManager = factory.createTileManager();
+        layoutManager = factory.createTileManager();
 
-        /* Input */
+        // Input //
         input = factory.createInput();
-
-
     }
 
-    /* METHODS */
+    // METHODS //
 
     @Override
     public void init() {
-        /* Load the first level */
+        // Load the first level //
         loadLevel(levelManager.getLevel(1));
     }
 
@@ -62,34 +64,60 @@ public class LevelScene extends AbstractScene {
             }
         } else {
 
-            /**
-             * UPDATE HERE
-             */
+            // TODO: update the game here
+            currentInput = input.getInput();
 
-            if (input.getInput().get(Input.Action.PAUSE)) {
-                paused = true;
+            for (Input.Action action : currentInput.keySet()) {
+                if (currentInput.get(action)) {
+                    switch (action) {
+                        case UP -> {
+                            // TODO: Check if the player is near a ladder
+                            player.setCurrentState(State.CLIMB);
+                        }
+                        case DOWN -> {
+                            player.setCurrentState(State.CLIMB);
+                        }
+                        case LEFT -> {
+                            player.setCurrentState(State.WALK);
+                        }
+                        case RIGHT -> {
+                            player.setCurrentState(State.WALK);
+                        }
+                        case RUN -> {
+                            player.setCurrentState(State.RUN);
+                        }
+                        case JUMP -> {
+                            player.setCurrentState(State.JUMP);
+                        }
+                        case ATTACK -> {
+                            player.setCurrentState(State.ATTACK1);
+                        }
+                        case PAUSE -> {
+                            // TODO: Pause the game
+                        }
+                        default -> {
+                            player.setCurrentState(State.IDLE);
+                        }
+                    }
+                }
             }
         }
     }
 
     @Override
     public void draw() {
-        /* Layout */
+        // Layout //
+        layoutManager.draw(currentLevel.getLayout(), mapLayout);
 
-        /**
-         * Still need to resize the tile sprites
-         */
-
-        tileManager.draw(currentLevel.getLayout(), mapLayout);
-
-        /* Enemies */
+        // Enemies //
         for (AbstractEnemy enemy : enemies) {
             enemy.draw();
         }
 
-        /* Player */
+        // Player //
         player.draw();
 
+        // Render //
         getFactory().render();
     }
 
@@ -98,7 +126,7 @@ public class LevelScene extends AbstractScene {
 
         currentLevel = level;
 
-        /* Create all the necessary objects */
+        // Create all the necessary objects //
         player = getFactory().createPlayer();
 
         EnemyStats[] enemyStats = level.getEnemyStats();
@@ -108,6 +136,6 @@ public class LevelScene extends AbstractScene {
             enemies[i] = getFactory().createEnemy(enemyStats[i]);
         }
 
-        mapLayout = tileManager.loadMap(level.getLayout());
+        mapLayout = layoutManager.loadMap(level.getLayout());
     }
 }

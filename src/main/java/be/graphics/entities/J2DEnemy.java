@@ -5,17 +5,17 @@ import be.engine.ecs.entities.AbstractEnemy;
 
 public class J2DEnemy extends AbstractEnemy {
 
-    /* FIELDS */
+    // FIELDS //
 
 
 
-    /* CONSTRUCTOR */
+    // CONSTRUCTOR //
 
     public J2DEnemy(EnemyStats enemyStats) {
         super(enemyStats);
     }
 
-    /* METHODS */
+    // METHODS //
 
     @Override
     public void draw() {

@@ -5,19 +5,19 @@ import be.engine.data.Tile;
 
 import java.util.HashMap;
 
-public abstract class AbstractTileManager {
+public abstract class AbstractLayoutManager {
 
-    /* FIELDS */
+    // FIELDS //
 
     private HashMap<Integer, Tile> tiles;
 
-    /* CONSTRUCTOR */
+    // CONSTRUCTOR //
 
-    public AbstractTileManager(HashMap<Integer, Tile> tiles) {
+    public AbstractLayoutManager(HashMap<Integer, Tile> tiles) {
         this.tiles = tiles;
     }
 
-    /* GETTER & SETTER */
+    // GETTER & SETTER //
 
     public HashMap<Integer, Tile> getTiles() {
         return tiles;
@@ -31,7 +31,7 @@ public abstract class AbstractTileManager {
         this.tiles.clear();
     }
 
-    /* METHODS */
+    // METHODS //
 
     public abstract int[][] loadMap(Layout layout);
 
